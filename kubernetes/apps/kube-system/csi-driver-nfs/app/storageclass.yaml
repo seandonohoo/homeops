@@ -1,0 +1,24 @@
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: nfs-fast
+provisioner: nfs.csi.k8s.io
+parameters:
+  server: 10.26.10.5
+  share: /volume2/nfs-fast
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+mountOptions: ["hard", "noatime"]
+---
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: nfs-slow
+provisioner: nfs.csi.k8s.io
+parameters:
+  server: 10.26.10.5
+  share: /volume1/nfs-slow
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+mountOptions: ["hard", "noatime"]

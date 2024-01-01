@@ -30,11 +30,11 @@ bootstrap_cloudflare_domain:
 # Cloudflare API Token (not API Key)
 bootstrap_cloudflare_token:
 # Cloudflared Account Tag (cat ~/.cloudflared/*.json | jq -r .AccountTag)
-bootstrap_cloudflare_account_tag:
+# bootstrap_cloudflare_account_tag:
 # Cloudflared Tunnel Secret (cat ~/.cloudflared/*.json | jq -r .TunnelSecret)
-bootstrap_cloudflare_tunnel_secret:
+# bootstrap_cloudflare_tunnel_secret:
 # Cloudflared Tunnel ID (cat ~/.cloudflared/*.json | jq -r .TunnelID)
-bootstrap_cloudflare_tunnel_id:
+# bootstrap_cloudflare_tunnel_id:
 
 # CIDR your nodes are on (e.g. 192.168.1.0/24)
 bootstrap_node_cidr:

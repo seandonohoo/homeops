@@ -1,0 +1,19 @@
+---
+kubernetes:
+  children:
+    master:
+      hosts:
+        k3s1:
+          ansible_user: seand
+          ansible_host: 10.26.10.101
+    worker:
+      hosts:
+        k3s2:
+          ansible_user: seand
+          ansible_host: 10.26.10.102
+        k3s3:
+          ansible_user: seand
+          ansible_host: 10.26.10.103
+        k3s4:
+          ansible_user: seand
+          ansible_host: 10.26.10.104
