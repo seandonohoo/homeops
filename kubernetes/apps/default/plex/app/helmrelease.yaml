@@ -41,7 +41,7 @@ spec:
               repository: ghcr.io/onedr0p/plex
               tag: 1.32.8.7639-fb6452ebf@sha256:637fe10cef736f249d96cb004c12f81646c81ca17ddce22374ea8782aa6646c2
             env:
-              TZ: America/New_York
+              TZ: America/Chicago
             probes:
               liveness: &probes
                 enabled: true
@@ -80,6 +80,7 @@ spec:
                   topologyKey: kubernetes.io/hostname
           nodeSelector:
             intel.feature.node.kubernetes.io/gpu: "true"
+            kubernetes.io/hostname: "k3s4"
           securityContext:
             runAsUser: 568
             runAsGroup: 568
@@ -91,7 +92,7 @@ spec:
       main:
         type: LoadBalancer
         annotations:
-          io.cilium/lb-ipam-ips: 192.168.42.210
+          io.cilium/lb-ipam-ips: 10.26.10.220
         ports:
           http:
             port: 32400
@@ -100,10 +101,10 @@ spec:
         enabled: true
         className: external
         annotations:
-          external-dns.alpha.kubernetes.io/target: external.devbu.io
+          external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
           nginx.ingress.kubernetes.io/backend-protocol: "HTTPS"
         hosts:
-          - host: &host "{{ .Release.Name }}.devbu.io"
+          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
@@ -112,6 +113,14 @@ spec:
         tls:
           - hosts:
               - *host
+    volumeClaimTemplates:
+      - name: config
+        mountPath: /config
+        accessMode: ReadWriteOnce
+        size: 100Gi
+        storageClass: ceph-block
+        labels:
+          snapshot.home.arpa/enabled: "true"
     persistence:
       config:
         enabled: true
@@ -121,9 +130,11 @@ spec:
       transcode:
         type: emptyDir
       media:
+        enabled: true
         type: nfs
-        server: expanse.turbo.ac
-        path: /eros/Media
+        server: 10.26.10.5
+        path: /volume1/Media
         globalMounts:
           - path: /media
             readOnly: true
+        mountPath: /media
