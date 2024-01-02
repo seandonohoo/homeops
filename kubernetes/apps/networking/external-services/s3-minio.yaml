@@ -27,7 +27,7 @@ metadata:
     app.kubernetes.io/name: *app
     app.kubernetes.io/instance: *app
 spec:
-  ingressClassName: nginx
+  ingressClassName: internal
   rules:
     - host: &host "s3.${SECRET_DOMAIN}"
       http:
