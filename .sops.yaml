@@ -5,12 +5,15 @@ creation_rules:
     key_groups:
       - age:
           - "age16d3834k4ae5mcwaksdkwk6w6w0xlu2apvgmazpx2qa6x4e7ydcnsy3gh9u"
+          - "age1vuvrs7evuks8zjl949dl2mcn4elxz0578cs03tnc63lt5aej49xqv92j8a"
   - path_regex: ansible/.*\.sops\.ya?ml
     key_groups:
       - age:
           - "age16d3834k4ae5mcwaksdkwk6w6w0xlu2apvgmazpx2qa6x4e7ydcnsy3gh9u"
+          - "age1vuvrs7evuks8zjl949dl2mcn4elxz0578cs03tnc63lt5aej49xqv92j8a"
   # https://github.com/ansible-collections/community.sops/issues/153
   - path_regex: /dev/stdin
     key_groups:
       - age:
           - "age16d3834k4ae5mcwaksdkwk6w6w0xlu2apvgmazpx2qa6x4e7ydcnsy3gh9u"
+          - "age1vuvrs7evuks8zjl949dl2mcn4elxz0578cs03tnc63lt5aej49xqv92j8a"

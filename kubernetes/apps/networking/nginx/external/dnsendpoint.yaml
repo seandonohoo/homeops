@@ -8,4 +8,4 @@ spec:
   endpoints:
     - dnsName: "external.${SECRET_DOMAIN}"
       recordType: CNAME
-      targets: ["ingress.${SECRET_DOMAIN}"]
+      targets: ["ipv4.${SECRET_DOMAIN}"]
