@@ -57,6 +57,8 @@ spec:
       mon:
         allowMultiplePerNode: false
         count: 3
+      mgr:
+        count: 1
       crashCollector:
         disable: false
       dashboard:
