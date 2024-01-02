@@ -12,3 +12,5 @@ kubeconfig
 .venv*
 # Taskfile
 .tasks
+# Sops rc file
+.sopsrc
