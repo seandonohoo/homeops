@@ -4,6 +4,7 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./echo-server/ks.yaml
+  - ./external-services
   - ./external-dns/ks.yaml
   - ./k8s-gateway/ks.yaml
   - ./nginx/ks.yaml
