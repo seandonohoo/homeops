@@ -54,6 +54,9 @@ spec:
         provider: host
         connections:
           requireMsgr2: true
+      mon:
+        allowMultiplePerNode: true
+        count: 3
       crashCollector:
         disable: false
       dashboard:
@@ -114,7 +117,7 @@ spec:
         spec:
           failureDomain: host
           replicated:
-            size: 1
+            size: 3
         storageClass:
           enabled: true
           name: ceph-block
@@ -141,11 +144,11 @@ spec:
         spec:
           metadataPool:
             replicated:
-              size: 1
+              size: 3
           dataPools:
             - failureDomain: host
               replicated:
-                size: 1
+                size: 3
               name: data0
           metadataServer:
             activeCount: 1
@@ -182,7 +185,7 @@ spec:
           metadataPool:
             failureDomain: host
             replicated:
-              size: 1
+              size: 3
           dataPool:
             failureDomain: host
             erasureCoded:
