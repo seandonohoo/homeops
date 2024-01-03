@@ -6,3 +6,4 @@ resources:
   - ./homeassistant.yaml
   - ./minio.yaml
   - ./s3-minio.yaml
+  - ./birdnet.yaml
