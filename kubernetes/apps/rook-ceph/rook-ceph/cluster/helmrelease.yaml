@@ -54,11 +54,6 @@ spec:
         provider: host
         connections:
           requireMsgr2: true
-      mon:
-        allowMultiplePerNode: false
-        count: 3
-      mgr:
-        count: 1
       crashCollector:
         disable: false
       dashboard:
@@ -91,7 +86,7 @@ spec:
                 - matchExpressions:
                     - key: node-role.kubernetes.io/control-plane
                       operator: Exists
-        # mon: *placement
+        mon: *placement
       resources:
         mgr:
           requests:
@@ -202,7 +197,7 @@ spec:
                 memory: 1Gi
               limits:
                 memory: 2Gi
-            instances: 1
+            instances: 2
           healthCheck:
             bucket:
               interval: 60s
