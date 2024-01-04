@@ -57,6 +57,8 @@ spec:
           - name: prometheus
             parameters: 0.0.0.0:9153
           - name: forward
+            parameters: donohulu.com 10.26.10.1
+          - name: forward
             parameters: . /etc/resolv.conf
           - name: cache
             parameters: 30
