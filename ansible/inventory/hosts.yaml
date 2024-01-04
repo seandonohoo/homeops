@@ -6,8 +6,6 @@ kubernetes:
         k3s1:
           ansible_user: seand
           ansible_host: 10.26.10.101
-    worker:
-      hosts:
         k3s2:
           ansible_user: seand
           ansible_host: 10.26.10.102
