@@ -31,7 +31,7 @@ metadata:
 spec:
   sourcePVC: "${APP}"
   trigger:
-    schedule: "0 * * * *"
+    schedule: "0 0 * * *"
   restic:
     copyMethod: "${VOLSYNC_COPYMETHOD:-Snapshot}"
     pruneIntervalDays: 7
@@ -47,9 +47,8 @@ spec:
       runAsGroup: 568
       fsGroup: 568
     retain:
-      hourly: 24
-      daily: 7
-      weekly: 5
+      daily: 10
+      within: 3d
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/volsync.backube/replicationdestination_v1alpha1.json
 apiVersion: volsync.backube/v1alpha1
