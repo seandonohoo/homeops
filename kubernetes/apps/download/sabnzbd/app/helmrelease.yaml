@@ -70,10 +70,10 @@ spec:
               readiness: *probes
               startup:
                 enabled: false
-            securityContext:
-              allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
-              capabilities: { drop: ["ALL"] }
+            # securityContext:
+            #   allowPrivilegeEscalation: false
+            #   readOnlyRootFilesystem: true
+            #   capabilities: { drop: ["ALL"] }
             resources:
               limits: &resources
                 memory: 8Gi
@@ -81,6 +81,8 @@ spec:
                 <<: *resources
                 cpu: 100m
         pod:
+          annotations:
+            setVPNGateway: "true"
           securityContext:
             runAsUser: 568
             runAsGroup: 568
