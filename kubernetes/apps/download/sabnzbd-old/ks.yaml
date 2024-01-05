@@ -12,7 +12,7 @@ spec:
       app.kubernetes.io/name: *app
   # dependsOn:
   #   - name: external-secrets-stores
-  path: ./kubernetes/apps/download/sabnzbd/app
+  path: ./kubernetes/apps/download/sabnzbd-old/app
   prune: true
   sourceRef:
     kind: GitRepository
