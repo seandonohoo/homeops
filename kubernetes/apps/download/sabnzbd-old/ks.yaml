@@ -7,9 +7,9 @@ metadata:
   labels:
     substitution.flux.home.arpa/enabled: "true"
 spec:
-  dependsOn:
-    - name: cluster-apps-rook-ceph-cluster
-    - name: cluster-apps-vpn-gateway
+  # dependsOn:
+  #   - name: cluster-apps-rook-ceph-cluster
+  #   - name: cluster-apps-vpn-gateway
   path: ./kubernetes/apps/download/sabnzbd/app
   prune: true
   sourceRef:
