@@ -31,7 +31,7 @@ spec:
   values:
     defaultPodOptions:
       annotations:
-        setVPNGateway: "true"
+        setGateway: "true"
     controllers:
       main:
         annotations:
