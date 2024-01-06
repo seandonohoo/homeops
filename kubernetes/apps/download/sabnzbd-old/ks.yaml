@@ -10,6 +10,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
+      setGateway: "true"
   # dependsOn:
   #   - name: external-secrets-stores
   path: ./kubernetes/apps/download/sabnzbd-old/app
