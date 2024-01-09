@@ -40,7 +40,9 @@ spec:
               - secretRef:
                   name: sonarr-secret
             securityContext:
-              runAsUser: 0
+              capabilities:
+                add:
+                  - NET_ADMIN
         containers:
           main:
             image:
