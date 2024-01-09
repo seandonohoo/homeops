@@ -27,9 +27,9 @@ spec:
     - name: rook-ceph-cluster
       namespace: rook-ceph
   values:
-    defaultPodOptions:
-      annotations:
-        setGateway: "true"
+    # defaultPodOptions:
+    #   annotations:
+    #     setGateway: "true"
     controllers:
       main:
         annotations:
@@ -86,8 +86,8 @@ spec:
                 <<: *resources
                 cpu: 10m
         pod:
-          annotations:
-            setGateway: "true"
+          # annotations:
+          #   setGateway: "true"
           securityContext:
             runAsUser: 568
             runAsGroup: 568

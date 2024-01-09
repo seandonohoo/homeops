@@ -10,7 +10,7 @@ spec:
   commonMetadata:
     labels:
       app.kubernetes.io/name: *app
-      setGateway: "true"
+      # setGateway: "true"
   dependsOn:
     - name: cloudnative-pg-cluster
     - name: external-secrets-stores
