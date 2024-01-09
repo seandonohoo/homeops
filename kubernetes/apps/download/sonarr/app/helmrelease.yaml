@@ -39,8 +39,8 @@ spec:
             envFrom: &envFrom
               - secretRef:
                   name: sonarr-secret
-          securityContext:
-            runAsUser: 0
+            securityContext:
+              runAsUser: 0
         containers:
           main:
             image:
