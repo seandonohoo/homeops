@@ -32,6 +32,9 @@ spec:
         annotations:
           reloader.stakater.com/auto: "true"
         initContainers:
+          pod-gateway:
+            image:
+              repository: ghcr.io/angelnu/pod-gateway
           init-db:
             image:
               repository: ghcr.io/onedr0p/postgres-init
