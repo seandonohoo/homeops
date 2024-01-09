@@ -31,15 +31,7 @@ spec:
       main:
         annotations:
           reloader.stakater.com/auto: "true"
-        # initContainers:
-        #   init-db:
-        #     image:
-        #       repository: ghcr.io/onedr0p/postgres-init
-        #       tag: 16
-        #     envFrom: &envFrom
-        #       - secretRef:
-        #           name: sonarr-secret
-        containers:
+        initContainers:
           init-db:
             image:
               repository: ghcr.io/onedr0p/postgres-init
@@ -47,6 +39,9 @@ spec:
             envFrom: &envFrom
               - secretRef:
                   name: sonarr-secret
+          securityContext:
+            runAsUser: 0
+        containers:
           main:
             image:
               repository: ghcr.io/onedr0p/sonarr
