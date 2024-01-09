@@ -35,6 +35,7 @@ spec:
           pod-gateway:
             image:
               repository: ghcr.io/angelnu/pod-gateway
+              tag: 15
           init-db:
             image:
               repository: ghcr.io/onedr0p/postgres-init
