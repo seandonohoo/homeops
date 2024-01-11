@@ -26,8 +26,8 @@ spec:
 
   values:
     image:
-      repository: ghcr.io/angelnu/pod-gateway
-      tag: v1.8.1@sha256:690b6365728fe9012ad4cdfca38334992664596513dca187d1b93d2025205776
+      repository: ghcr.io/seandonohoo/gateway-admision-controller
+      tag: dev@sha256:0c40884748408ec00e18a3c95bcb9c7fed446af36fe39fc18c6e2b460cf9ac9e
 
     env:
       TZ: "American/Chicago"
