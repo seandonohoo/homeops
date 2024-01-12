@@ -27,8 +27,11 @@ spec:
     - name: rook-ceph-cluster
       namespace: rook-ceph
     - name: volsync
-      namespace: storage
+      namespace: volsync
   values:
+    defaultPodOptions:
+      annotations:
+        setGateway: "true"
     controllers:
       main:
         annotations:
@@ -39,7 +42,7 @@ spec:
               repository: ghcr.io/onedr0p/qbittorrent
               tag: 4.6.2@sha256:fedb62126c82ae0c7192e9052633411294a27e9c233613c03b0a8d168d160040
             env:
-              TZ: America/New_York
+              TZ: America/Chicago
               QBITTORRENT__PORT: &port 80
               QBITTORRENT__BT_PORT: &bittorrentPort 50413
               QBT_Preferences__WebUI__AlternativeUIEnabled: false
@@ -105,7 +108,7 @@ spec:
         enabled: true
         className: internal
         hosts:
-          - host: &host qb.devbu.io
+          - host: &host "qb.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
@@ -114,21 +117,31 @@ spec:
         tls:
           - hosts:
               - *host
+    volumeClaimTemplates:
+      - name: config
+        mountPath: /config
+        accessMode: ReadWriteOnce
+        size: 2Gi
+        storageClass: ceph-block
+        labels:
+          snapshot.home.arpa/enabled: "true"
+      - name: tempdownloads
+        mountPath: /tempdownloads
+        accessMode: ReadWriteOnce
+        size: 200Gi
+        storageClass: local-path
+        labels:
+          snapshot.home.arpa/enabled: "true"
     persistence:
       config:
         enabled: true
         existingClaim: qbittorrent
-      completed-script:
-        type: configMap
-        name: qbittorrent-scripts
-        defaultMode: 0775
-        globalMounts:
-          - path: /scripts/completed.sh
-            subPath: completed.sh
-            readOnly: true
       media:
+        enabled: true
         type: nfs
-        server: expanse.turbo.ac
-        path: /eros/Media
-        globalMounts:
-          - path: /media
+        server: 10.26.10.5
+        path: /volume1/Media
+        mountPath: /media
+      incomplete:
+        enabled: true
+        type: emptyDir
