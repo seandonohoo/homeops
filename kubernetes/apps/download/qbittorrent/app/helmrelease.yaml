@@ -116,13 +116,6 @@ spec:
           - hosts:
               - *host
     volumeClaimTemplates:
-      - name: config
-        mountPath: /config
-        accessMode: ReadWriteOnce
-        size: 2Gi
-        storageClass: ceph-block
-        labels:
-          snapshot.home.arpa/enabled: "true"
       - name: tempdownloads
         mountPath: /tempdownloads
         accessMode: ReadWriteOnce
