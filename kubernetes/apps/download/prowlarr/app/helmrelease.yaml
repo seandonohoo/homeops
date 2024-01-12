@@ -36,6 +36,8 @@ spec:
             envFrom: &envFrom
               - secretRef:
                   name: prowlarr-secret
+            annotations:
+              setGateway: "true"
         containers:
           main:
             image:
@@ -50,7 +52,7 @@ spec:
               PROWLARR__LOG_LEVEL: info
               PROWLARR__AUTHENTICATION_METHOD: External
               PROWLARR__THEME: dark
-              TZ: America/New_York
+              TZ: America/Chicago
             envFrom: *envFrom
             probes:
               liveness: &probes
@@ -78,6 +80,8 @@ spec:
                 <<: *resources
                 cpu: 10m
         pod:
+          annotations:
+            setGateway: "true"
           securityContext:
             runAsUser: 568
             runAsGroup: 568
@@ -94,7 +98,7 @@ spec:
         enabled: true
         className: internal
         hosts:
-          - host: &host "{{ .Release.Name }}.devbu.io"
+          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
