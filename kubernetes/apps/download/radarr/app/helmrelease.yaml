@@ -39,6 +39,8 @@ spec:
             envFrom: &envFrom
               - secretRef:
                   name: radarr-secret
+            annotations:
+              setGateway: "true"
         containers:
           main:
             image:
@@ -55,7 +57,7 @@ spec:
               RADARR__PORT: &port 80
               RADARR__LOG_LEVEL: info
               RADARR__THEME: dark
-              TZ: America/New_York
+              TZ: America/Chicago
             envFrom: *envFrom
             probes:
               liveness: &probes
@@ -83,6 +85,8 @@ spec:
                 <<: *resources
                 cpu: 10m
         pod:
+          annotations:
+            setGateway: "true"
           securityContext:
             runAsUser: 568
             runAsGroup: 568
@@ -100,7 +104,7 @@ spec:
         enabled: true
         className: internal
         hosts:
-          - host: &host "{{ .Release.Name }}.devbu.io"
+          - host: &host "{{ .Release.Name }}.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
@@ -113,19 +117,12 @@ spec:
       config:
         enabled: true
         existingClaim: radarr-config
-      pushover-notify:
-        type: configMap
-        name: radarr-configmap
-        defaultMode: 0775
-        globalMounts:
-          - path: /scripts/pushover-notify.sh
-            subPath: pushover-notify.sh
-            readOnly: true
       tmp:
         type: emptyDir
       media:
+        enabled: true
         type: nfs
-        server: expanse.turbo.ac
-        path: /eros/Media
+        server: 10.26.10.5
+        path: /volume1/Media
         globalMounts:
           - path: /media
