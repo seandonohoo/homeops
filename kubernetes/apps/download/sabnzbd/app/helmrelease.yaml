@@ -109,15 +109,14 @@ spec:
         tls:
           - hosts:
               - *host
-    volumeClaimTemplates:
-      - name: tempdownloads
-        mountPath: /tempdownloads
+    persistence:
+      tempdownload:
+        type: persistentVolumeClaim
+        storageClass: local-hostpath
         accessMode: ReadWriteOnce
         size: 200Gi
-        storageClass: local-hostpath
-        labels:
-          snapshot.home.arpa/enabled: "true"
-    persistence:
+        globalMounts:
+          - path: /tempdownloads
       config:
         enabled: true
         existingClaim: sabnzbd
