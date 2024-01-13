@@ -45,7 +45,7 @@ spec:
               # https://github.com/Radarr/Radarr/issues/7030#issuecomment-1039689518
               # https://github.com/dotnet/runtime/issues/9336
               COMPlus_EnableDiagnostics: "0"
-              TZ: America/New_York
+              TZ: America/Chicago
             envFrom:
               - secretRef:
                   name: recyclarr-secret
