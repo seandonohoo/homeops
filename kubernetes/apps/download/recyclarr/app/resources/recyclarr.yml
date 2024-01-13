@@ -1,8 +1,10 @@
 ---
 sonarr:
-  standard:
+  series:
     base_url: http://sonarr.download.svc.cluster.local
     api_key: !env_var SONARR_API_KEY
+
+    replace_existing_custom_formats: true
     delete_old_custom_formats: true
     quality_definition:
       type: series
@@ -100,10 +102,11 @@ sonarr:
           - name: WEB-DL (2160p)
 
 radarr:
-  standard:
+  movies:
     base_url: http://radarr.download.svc.cluster.local
     api_key: !env_var RADARR_API_KEY
     delete_old_custom_formats: true
+    replace_existing_custom_formats: true
     quality_definition:
       type: sqp-uhd
 
