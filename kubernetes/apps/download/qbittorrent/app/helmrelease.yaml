@@ -125,16 +125,17 @@ spec:
           - hosts:
               - *host
     persistence:
+      config:
+        enabled: true
+        existingClaim: qbittorrent
       tempdownload:
+        enabled: true
         type: persistentVolumeClaim
         storageClass: local-hostpath
         accessMode: ReadWriteOnce
         size: 200Gi
         globalMounts:
           - path: /tempdownloads
-      config:
-        enabled: true
-        existingClaim: qbittorrent
       media:
         enabled: true
         type: nfs
