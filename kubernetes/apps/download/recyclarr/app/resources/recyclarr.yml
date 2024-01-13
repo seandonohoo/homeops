@@ -434,7 +434,6 @@ radarr:
 
         quality_profiles:
           - name: Remux|Bluray|IMAX-E|2160p|1080p
-            score: 0
 
       - trash_ids:
           # DV (WEBDL)
