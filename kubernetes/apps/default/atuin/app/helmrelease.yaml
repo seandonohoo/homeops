@@ -90,7 +90,7 @@ spec:
         enabled: true
         className: internal
         hosts:
-          - host: &host sh.devbu.io
+          - host: &host "sh.${SECRET_DOMAIN}"
             paths:
               - path: /
                 service:
