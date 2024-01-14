@@ -69,25 +69,16 @@ spec:
             #   readiness: *probes
             #   startup:
             #     enabled: false
-            # securityContext:
-            #   allowPrivilegeEscalation: false
-            #   readOnlyRootFilesystem: true
-            #   capabilities: { drop: ["ALL"] }
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
             resources:
               limits: &resources
                 memory: 8Gi
               requests:
                 <<: *resources
                 cpu: 100m
-            storage:
-              volumeClaimTemplate:
-                spec:
-                  storageClassName: local-hostpath
-                  resources:
-                    requests:
-                      storage: 200Gi
-
-
         pod:
           securityContext:
             runAsUser: 568
@@ -138,6 +129,7 @@ spec:
         storageClass: local-hostpath
         accessMode: ReadWriteOnce
         size: 200Gi
+        path: /tempdownloads
         globalMounts:
           - path: /tempdownloads
       media:
