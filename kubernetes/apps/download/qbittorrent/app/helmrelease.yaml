@@ -71,11 +71,11 @@ spec:
             #     enabled: false
             securityContext:
               allowPrivilegeEscalation: false
-              readOnlyRootFilesystem: true
+              readOnlyRootFilesystem: false
               capabilities: { drop: ["ALL"] }
             resources:
               limits: &resources
-                memory: 16Gi
+                memory: 8Gi
               requests:
                 <<: *resources
                 cpu: 100m
@@ -129,6 +129,9 @@ spec:
       config:
         enabled: true
         existingClaim: qbittorrent
+      incomplete:
+        enabled: true
+        type: emptyDir
       tempdownload:
         enabled: true
         type: persistentVolumeClaim
@@ -143,6 +146,4 @@ spec:
         server: 10.26.10.5
         path: /volume1/Media
         mountPath: /media
-      incomplete:
-        enabled: true
-        type: emptyDir
+
