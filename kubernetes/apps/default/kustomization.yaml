@@ -6,3 +6,4 @@ resources:
   - ./hajimari/ks.yaml
   - ./plex/ks.yaml
   - ./media-browser/ks.yaml
+  - ./atuin/ks.yaml
