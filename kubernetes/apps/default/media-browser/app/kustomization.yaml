@@ -5,4 +5,4 @@ kind: Kustomization
 resources:
   - ./claim.yaml
   - ./helmrelease.yaml
-  - ../../../../templates/gatus/guarded
+  # - ../../../../templates/gatus/guarded
