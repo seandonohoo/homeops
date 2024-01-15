@@ -38,7 +38,11 @@ spec:
         ingressClassName: internal
         host:
           name: &host "rook.${SECRET_DOMAIN}"
-          path: /
+          paths:
+            - path: /
+              service:
+                name: rook-ceph-mgr-dashboard
+                port: 7000
         tls:
           - hosts:
               - *host
