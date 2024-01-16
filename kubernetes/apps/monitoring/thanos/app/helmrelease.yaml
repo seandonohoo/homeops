@@ -33,25 +33,25 @@ spec:
       namespace: rook-ceph
   valuesFrom:
     - targetPath: objstoreConfig.config.bucket
-      kind: ConfigMap
-      name: thanos-bucket-v2
-      valuesKey: BUCKET_NAME
+      kind: Secret
+      name: thanos-secret
+      valuesKey: S3_BUCKET
     - targetPath: objstoreConfig.config.endpoint
-      kind: ConfigMap
-      name: thanos-bucket-v2
-      valuesKey: BUCKET_HOST
+      kind: Secret
+      name: thanos-secret
+      valuesKey: S3_HOST
     - targetPath: objstoreConfig.config.region
-      kind: ConfigMap
-      name: thanos-bucket-v2
-      valuesKey: BUCKET_REGION
+      kind: Secret
+      name: thanos-secret
+      valuesKey: S3_REGION
     - targetPath: objstoreConfig.config.access_key
       kind: Secret
-      name: thanos-bucket-v2
-      valuesKey: AWS_ACCESS_KEY_ID
+      name: thanos-secret
+      valuesKey: S3_ACCESS_KEY
     - targetPath: objstoreConfig.config.secret_key
       kind: Secret
-      name: thanos-bucket-v2
-      valuesKey: AWS_SECRET_ACCESS_KEY
+      name: thanos-secret
+      valuesKey: S3_SECRET_KEY
   values:
     image:
       registry: quay.io
@@ -81,14 +81,6 @@ spec:
         extraTls:
           - hosts:
               - *host
-    query:
-      enabled: true
-      replicaCount: 2
-      replicaLabel: ["__replica__"]
-      dnsDiscovery:
-        sidecarsService: kube-prometheus-stack-thanos-discovery
-        sidecarsNamespace: observability
-      stores: ["thanos.turbo.ac:10901"]
     bucketweb:
       enabled: true
       replicaCount: 2
