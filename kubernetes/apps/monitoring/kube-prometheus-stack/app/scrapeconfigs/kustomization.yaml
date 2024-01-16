@@ -6,7 +6,7 @@ resources:
   # - ./expanse.yaml
   # - ./federation.yaml
   - ./kube-vip.yaml
-  # - ./node-exporter.yaml
+  - ./node-exporter.yaml
   # - ./pikvm.yaml
   # - ./vyos.yaml
   # - ./zigbee-controller.yaml

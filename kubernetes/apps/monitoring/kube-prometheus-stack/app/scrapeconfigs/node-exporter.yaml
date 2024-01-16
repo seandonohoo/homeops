@@ -7,6 +7,6 @@ metadata:
 spec:
   staticConfigs:
     - targets:
-        - pikvm.turbo.ac:9100
-        - vyos.turbo.ac:9100
+        - 10.26.20.150:9100
+        - 10.26.20.151:9100
   metricsPath: /metrics
