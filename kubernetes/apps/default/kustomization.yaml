@@ -4,7 +4,7 @@ kind: Kustomization
 resources:
   - ./namespace.yaml
   - ./hajimari/ks.yaml
-  - ./plex/ks.yaml
-  - ./media-browser/ks.yaml
+  # - ./plex/ks.yaml
+  # - ./media-browser/ks.yaml
   - ./atuin/ks.yaml
-  - ./overseerr/ks.yaml
+  # - ./overseerr/ks.yaml
