@@ -1,11 +1,10 @@
 ---
 version: "3"
 
-tasks:
+includes:
+  volsync: VolSync/Taskfile.yaml
 
-  verify:
-    desc: Verify flux meets the prerequisites
-    cmd: flux check --pre
+tasks:
 
   install:
     desc: Install Flux into your cluster
