@@ -3,8 +3,10 @@
 apiVersion: monitoring.coreos.com/v1alpha1
 kind: ScrapeConfig
 metadata:
-  name: pikvm
+  name: node-exporter
 spec:
   staticConfigs:
-    - targets: ["pikvm.turbo.ac"]
-  metricsPath: /api/export/prometheus/metrics
+    - targets:
+        - 10.26.20.150:9100
+        - 10.26.20.151:9100
+  metricsPath: /metrics

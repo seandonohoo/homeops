@@ -3,8 +3,12 @@
 apiVersion: monitoring.coreos.com/v1alpha1
 kind: ScrapeConfig
 metadata:
-  name: zigbee-controller
+  name: kube-vip
 spec:
   staticConfigs:
-    - targets: ["zigbee-controller.turbo.ac"]
+    - targets:
+        - 10.26.10.101:2112
+        - 10.26.10.102:2112
+        - 10.26.10.103:2112
+        - 10.26.10.104:2112
   metricsPath: /metrics
