@@ -40,9 +40,6 @@ spec:
           name: &host "rook.${SECRET_DOMAIN}"
           paths:
             - path: /
-              service:
-                name: rook-ceph-mgr-dashboard
-                port: 7000
         tls:
           - hosts:
               - *host
@@ -189,9 +186,6 @@ spec:
               size: 3
           dataPool:
             failureDomain: host
-            erasureCoded:
-              dataChunks: 2
-              codingChunks: 1
           preservePoolsOnDelete: true
           gateway:
             port: 80
