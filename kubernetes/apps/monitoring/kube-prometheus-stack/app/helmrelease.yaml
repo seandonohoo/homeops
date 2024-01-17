@@ -28,7 +28,7 @@ spec:
     keepHistory: false
   dependsOn:
     - name: local-path-provisioner
-      namespace: storage
+      namespace: kube-system
   valuesFrom:
     - kind: ConfigMap
       name: kube-state-metrics-configmap
