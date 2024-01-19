@@ -106,6 +106,8 @@ spec:
             value: "off"
           - name: DOT
             value: "off"
+          - name: HEALTH_TARGET_ADDRESS
+            value: "mullvad.net:443"
 
         envFrom:
           - secretRef:
