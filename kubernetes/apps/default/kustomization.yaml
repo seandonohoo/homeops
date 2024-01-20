@@ -8,4 +8,4 @@ resources:
   - ./media-browser/ks.yaml
   - ./atuin/ks.yaml
   - ./overseerr/ks.yaml
-  - ./paperless/ks.yaml
+  # - ./paperless/ks.yaml
