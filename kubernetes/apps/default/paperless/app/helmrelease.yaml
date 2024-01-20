@@ -1,9 +1,9 @@
 ---
+# yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
 apiVersion: helm.toolkit.fluxcd.io/v2beta1
 kind: HelmRelease
 metadata:
   name: paperless
-  namespace: default
 spec:
   interval: 15m
   chart:
@@ -25,54 +25,69 @@ spec:
       retries: 3
   uninstall:
     keepHistory: false
+  dependsOn:
+    - name: rook-ceph-cluster
+      namespace: rook-ceph
   values:
-    initContainers:
-      init-db:
-        image:
-          repository: ghcr.io/onedr0p/postgres-init
-          tag: 16
-        envFrom: &enfFrom
-          - secretRef:
-              name: paperless-secret
-    controller:
-      type: statefulset
-      annotations:
-        reloader.stakater.com/auto: "true"
-    image:
-      repository: ghcr.io/paperless-ngx/paperless-ngx
-      tag: 2.4.0
-    env:
-      PAPERLESS_CONSUMER_POLLING: 60
-      PAPERLESS_CONSUMER_RECURSIVE: "true"
-      PAPERLESS_CONSUMER_SUBDIRS_AS_TAGS: "true"
-      PAPERLESS_CONSUMPTION_DIR: /data/nas/incoming
-      PAPERLESS_DATA_DIR: /data/local/data
-      PAPERLESS_EXPORT_DIR: /data/nas/export
-      PAPERLESS_MEDIA_ROOT: /data/local/media
-      PAPERLESS_ENABLE_HTTP_REMOTE_USER: "true"
-      PAPERLESS_HTTP_REMOTE_USER_HEADER_NAME: HTTP_X_AUTHENTIK_USERNAME
-      PAPERLESS_OCR_LANGUAGE: eng
-      PAPERLESS_PORT: &port 80
-      PAPERLESS_REDIS: redis://localhost:6379
-      PAPERLESS_WEBSERVER_WORKERS: "2"
-      PAPERLESS_TASK_WORKERS: 2
-      PAPERLESS_TIKA_ENABLED: 1
-      PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://localhost:3000
-      PAPERLESS_TIKA_ENDPOINT: http://localhost:9998
-      PAPERLESS_TIME_ZONE: America/Chicago
-      PAPERLESS_URL: "https://paperless.${SECRET_DOMAIN}"
-      USERMAP_UID: 568
-      USERMAP_GID: 568
-    envFrom:
-      - secretRef:
-          name: paperless-secret
-    pod:
-      securityContext:
-        runAsUser: 568
-        runAsGroup: 568
-        runAsNonRoot: true
-        fsGroup: 568
-        fsGroupChangePolicy: OnRootMismatch
+    controllers:
+      main:
+        annotations:
+          reloader.stakater.com/auto: "true"
+        initContainers:
+          init-db:
+            image:
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 16
+            envFrom: &envFrom
+              - secretRef:
+                  name: paperless-secret
+            annotations:
+              setGateway: "true"
+        containers:
+          main:
+            image:
+              repository: ghcr.io/paperless-ngx/paperless-ngx
+              tag: 2.4.0
+            env:
+              PAPERLESS_CONSUMER_POLLING: 60
+              PAPERLESS_CONSUMER_RECURSIVE: "true"
+              PAPERLESS_CONSUMER_SUBDIRS_AS_TAGS: "true"
+              PAPERLESS_CONSUMPTION_DIR: /data/nas/incoming
+              PAPERLESS_DATA_DIR: /data/local/data
+              PAPERLESS_EXPORT_DIR: /data/nas/export
+              PAPERLESS_MEDIA_ROOT: /data/local/media
+              PAPERLESS_ENABLE_HTTP_REMOTE_USER: "true"
+              PAPERLESS_HTTP_REMOTE_USER_HEADER_NAME: HTTP_X_AUTHENTIK_USERNAME
+              PAPERLESS_OCR_LANGUAGE: eng
+              PAPERLESS_PORT: &port 80
+              PAPERLESS_REDIS: redis://localhost:6379
+              PAPERLESS_WEBSERVER_WORKERS: "2"
+              PAPERLESS_TASK_WORKERS: 2
+              PAPERLESS_TIKA_ENABLED: 1
+              PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://localhost:3000
+              PAPERLESS_TIKA_ENDPOINT: http://localhost:9998
+              PAPERLESS_TIME_ZONE: America/Chicago
+              PAPERLESS_URL: "https://paperless.${SECRET_DOMAIN}"
+              USERMAP_UID: 568
+              USERMAP_GID: 568
+            envFrom: *envFrom
+            securityContext:
+              allowPrivilegeEscalation: false
+              readOnlyRootFilesystem: true
+              capabilities: { drop: ["ALL"] }
+            resources:
+              limits: &resources
+                memory: 5Gi
+              requests:
+                <<: *resources
+                cpu: 100m
+        pod:
+          securityContext:
+            runAsUser: 568
+            runAsGroup: 568
+            runAsNonRoot: true
+            fsGroup: 568
+            fsGroupChangePolicy: OnRootMismatch
     service:
       main:
         ports:
@@ -107,12 +122,7 @@ spec:
         path: /volume1/nfs-slow/paperless
         globalMounts:
           - path: /data/nas
-    resources:
-      requests:
-        cpu: 100m
-        memory: 1000Mi
-      limits:
-        memory: 5000Mi
+
     sidecars:
       gotenburg:
         image: thecodingmachine/gotenberg:8.0.2
