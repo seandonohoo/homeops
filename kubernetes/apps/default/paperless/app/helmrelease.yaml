@@ -1,11 +1,11 @@
 ---
 # yaml-language-server: $schema=https://kubernetes-schemas.pages.dev/helm.toolkit.fluxcd.io/helmrelease_v2beta2.json
-apiVersion: helm.toolkit.fluxcd.io/v2beta1
+apiVersion: helm.toolkit.fluxcd.io/v2beta2
 kind: HelmRelease
 metadata:
   name: paperless
 spec:
-  interval: 15m
+  interval: 30m
   chart:
     spec:
       chart: app-template
@@ -16,7 +16,6 @@ spec:
         namespace: flux-system
   maxHistory: 2
   install:
-    createNamespace: true
     remediation:
       retries: 3
   upgrade:
@@ -26,8 +25,12 @@ spec:
   uninstall:
     keepHistory: false
   dependsOn:
-    - name: rook-ceph-cluster
-      namespace: rook-ceph
+    - name: volsync
+      namespace: volsync
+    - name: paperless-gotenberg
+      namespace: default
+    - name: paperless-tika
+      namespace: default
   values:
     controllers:
       main:
@@ -41,13 +44,11 @@ spec:
             envFrom: &envFrom
               - secretRef:
                   name: paperless-secret
-            annotations:
-              setGateway: "true"
         containers:
           main:
             image:
               repository: ghcr.io/paperless-ngx/paperless-ngx
-              tag: 2.4.0
+              tag: 2.4.0@sha256:4e2f8d81d7d4b4af91a85982d6b3cec2012c62b526304c9fb1de5b4e813493b4
             env:
               PAPERLESS_CONSUMER_POLLING: 60
               PAPERLESS_CONSUMER_RECURSIVE: "true"
@@ -59,28 +60,59 @@ spec:
               PAPERLESS_ENABLE_HTTP_REMOTE_USER: "true"
               PAPERLESS_HTTP_REMOTE_USER_HEADER_NAME: HTTP_X_AUTHENTIK_USERNAME
               PAPERLESS_OCR_LANGUAGE: eng
-              PAPERLESS_PORT: &port 80
               PAPERLESS_REDIS: redis://localhost:6379
               PAPERLESS_WEBSERVER_WORKERS: "2"
               PAPERLESS_TASK_WORKERS: 2
               PAPERLESS_TIKA_ENABLED: 1
-              PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://localhost:3000
-              PAPERLESS_TIKA_ENDPOINT: http://localhost:9998
               PAPERLESS_TIME_ZONE: America/Chicago
               PAPERLESS_URL: "https://paperless.${SECRET_DOMAIN}"
-              # USERMAP_GID: 65542
+              PAPERLESS_AUDIT_LOG_ENABLED: "true"
+              PAPERLESS_HOST: 0.0.0.0
+              PAPERLESS_METRICS__ENABLE: "true"
+              PAPERLESS_METRICS__HOST: 0.0.0.0
+              PAPERLESS_METRICS__PORT: &metricsPort 8080
+              PAPERLESS_OPEN_REGISTRATION: "true"
+              PAPERLESS_PORT: &port 80
+              PAPERLESS_THREADS_PER_WORKER: 2
+              PAPERLESS_TIKA_ENDPOINT: http://paperless-tika.default.svc.cluster.local:9998
+              PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://paperless-gotenberg.default.svc.cluster.local:3000
+              PAPERLESS_TIMEZONE: America/Chicago
+              PAPERLESS_USE_X_FORWARD_HOST: "true"
             envFrom: *envFrom
+            probes:
+              liveness: &probes
+                enabled: true
+                custom: true
+                spec:
+                  httpGet:
+                    path: /
+                    port: *port
+                  initialDelaySeconds: 0
+                  periodSeconds: 10
+                  timeoutSeconds: 1
+                  failureThreshold: 3
+              readiness: *probes
+              startup:
+                enabled: false
             resources:
-              limits: &resources
-                memory: 5Gi
+              limits:
+                memory: 2Gi
               requests:
-                <<: *resources
-                cpu: 100m
-    service:
-      main:
-        ports:
-          http:
-            port: *port
+                cpu: 25m
+            securityContext:
+              allowPrivilegeEscalation: false
+              capabilities: { drop: ["ALL"] }
+          redis:
+            image:
+              repository: docker.io/redis
+              tag: 7.2.4-alpine
+        pod:
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            runAsNonRoot: true
+            fsGroup: 1000
+            fsGroupChangePolicy: OnRootMismatch
     ingress:
       main:
         enabled: true
@@ -96,7 +128,7 @@ spec:
           - hosts:
               - *host
     persistence:
-      data:
+      config:
         enabled: true
         existingClaim: paperless
         advancedMounts:
@@ -110,16 +142,10 @@ spec:
         path: /volume1/nfs-slow/paperless
         globalMounts:
           - path: /data/nas
-
-    sidecars:
-      gotenburg:
-        image: thecodingmachine/gotenberg:8.0.2
-        imagePullPolicy: IfNotPresent
-        env:
-          - { name: DISABLE_GOOGLE_CHROME, value: "1" }
-      redis:
-        image: public.ecr.aws/docker/library/redis:7.2.3
-        imagePullPolicy: IfNotPresent
-      tika:
-        image: ghcr.io/paperless-ngx/tika:2.9.0-full
-        imagePullPolicy: IfNotPresent
+    service:
+      main:
+        ports:
+          http:
+            port: *port
+          metrics:
+            port: *metricsPort
