@@ -91,6 +91,14 @@ spec:
     bucketweb:
       enabled: true
       replicaCount: 2
+      ingress:
+        enabled: true
+        ingressClassName: internal
+        hostname: &bucketweb "thanos-bucketweb.${SECRET_DOMAIN}"
+        tls: true
+        extraTls:
+          - hosts:
+            - *bucketweb
     compactor:
       enabled: true
       extraFlags:
