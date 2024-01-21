@@ -102,10 +102,6 @@ spec:
             securityContext:
               allowPrivilegeEscalation: false
               capabilities: { drop: ["ALL"] }
-          redis:
-            image:
-              repository: docker.io/redis
-              tag: 7.2.4-alpine
         pod:
           securityContext:
             runAsUser: 1000
