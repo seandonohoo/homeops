@@ -51,6 +51,11 @@ spec:
         replicas: 2
         strategy: RollingUpdate
     persistence:
+      config:
+        enabled: true
+        type: ceph-block
+        globalMounts:
+          - path: /data
       tmp:
         enabled: true
         type: emptyDir
