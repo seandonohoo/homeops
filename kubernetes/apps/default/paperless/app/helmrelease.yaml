@@ -61,7 +61,7 @@ spec:
               PAPERLESS_HTTP_REMOTE_USER_HEADER_NAME: HTTP_X_AUTHENTIK_USERNAME
               PAPERLESS_OCR_LANGUAGE: eng
               PAPERLESS_REDIS: redis://paperless-redis.default.svc.cluster.local:6379
-              PAPERLESS_WEBSERVER_WORKERS: "2"
+              PAPERLESS_WEBSERVER_WORKERS: "1"
               PAPERLESS_TASK_WORKERS: 1
               PAPERLESS_TIKA_ENABLED: 1
               PAPERLESS_TIME_ZONE: America/Chicago
@@ -73,7 +73,7 @@ spec:
               PAPERLESS_METRICS__PORT: &metricsPort 8080
               PAPERLESS_OPEN_REGISTRATION: "true"
               PAPERLESS_PORT: &port 80
-              PAPERLESS_THREADS_PER_WORKER: 2
+              PAPERLESS_THREADS_PER_WORKER: 1
               PAPERLESS_TIKA_ENDPOINT: http://paperless-tika.default.svc.cluster.local:9998
               PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://paperless-gotenberg.default.svc.cluster.local:3000
               PAPERLESS_TIMEZONE: America/Chicago
