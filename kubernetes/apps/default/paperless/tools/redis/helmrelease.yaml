@@ -53,7 +53,7 @@ spec:
     persistence:
       config:
         enabled: true
-        type: ceph-block
+        storageClass: ceph-block
         globalMounts:
           - path: /data
       tmp:
