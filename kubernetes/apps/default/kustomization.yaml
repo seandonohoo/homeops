@@ -7,5 +7,5 @@ resources:
   - ./plex/ks.yaml
   - ./media-browser/ks.yaml
   - ./atuin/ks.yaml
-  # - ./overseerr/ks.yaml
+  - ./overseerr/ks.yaml
   - ./paperless/ks.yaml
