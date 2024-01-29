@@ -10,3 +10,4 @@ resources:
   - ./overseerr/ks.yaml
   - ./paperless/ks.yaml
   - ./miniflux/ks.yaml
+  - ./vikunja/ks.yaml
