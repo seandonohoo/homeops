@@ -9,4 +9,4 @@ resources:
   - ./atuin/ks.yaml
   - ./overseerr/ks.yaml
   - ./paperless/ks.yaml
-  - ./miniflux/ks.yaml
+  # - ./miniflux/ks.yaml
