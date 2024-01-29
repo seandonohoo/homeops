@@ -6,7 +6,7 @@ namespace: default
 resources:
   - ./externalsecret.yaml
   - ./helmrelease.yaml
-  - ../../../../templates/gatus/external
+  # - ../../../../templates/gatus/external
   - ../../../../templates/volsync
 configMapGenerator:
   - name: vikunja-configmap
