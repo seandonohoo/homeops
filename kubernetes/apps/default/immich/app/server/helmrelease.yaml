@@ -28,8 +28,8 @@ spec:
   uninstall:
     keepHistory: false
   dependsOn:
-    - name: redis
-      namespace: database
+    - name: immich-redis
+      namespace: default
   values:
     defaultPodOptions:
       enableServiceLinks: false
