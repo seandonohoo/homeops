@@ -95,7 +95,7 @@ spec:
       library:
         type: nfs
         server: "10.26.10.5"
-        path: /volume01/Photos
+        path: /volume1/Photos
         globalMounts:
           - path: /usr/src/app/upload
       geocoding-dump:
