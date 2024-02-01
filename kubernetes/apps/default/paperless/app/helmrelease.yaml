@@ -74,6 +74,8 @@ spec:
               PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://paperless-gotenberg.default.svc.cluster.local:3000
               PAPERLESS_TIMEZONE: America/Chicago
               PAPERLESS_USE_X_FORWARD_HOST: "true"
+              USERMAP_UID: '1000'
+              USERMAP_GID: '1000'
             envFrom: *envFrom
             probes:
               liveness: &probes
