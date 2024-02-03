@@ -8,8 +8,8 @@ resources:
   - ./media-browser/ks.yaml
   - ./atuin/ks.yaml
   - ./overseerr/ks.yaml
-  # - ./paperless/ks.yaml
-  # - ./miniflux/ks.yaml
+  - ./paperless/ks.yaml
+  - ./miniflux/ks.yaml
   - ./vikunja/ks.yaml
   - ./immich/ks.yaml
   - ./proton-bridge/ks.yaml
