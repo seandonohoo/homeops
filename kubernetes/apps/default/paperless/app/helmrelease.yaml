@@ -27,14 +27,13 @@ spec:
   values:
     controllers:
       main:
-        type: statefulset
         annotations:
           reloader.stakater.com/auto: "true"
         initContainers:
           init-db:
             image:
-              repository: ghcr.io/haraldkoch/postgres-init
-              tag: 16.1@sha256:0412b8a443c0c6c7e8f7463c789fb1fe8ec632c8b6a68ddfe55cfb15d822083d
+              repository: ghcr.io/onedr0p/postgres-init
+              tag: 16
             envFrom: &envFrom
               - secretRef:
                   name: paperless-secret
