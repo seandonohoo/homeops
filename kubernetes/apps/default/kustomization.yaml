@@ -13,4 +13,3 @@ resources:
   - ./vikunja/ks.yaml
   - ./immich/ks.yaml
   - ./proton-bridge/ks.yaml
-  - ./jellyfin/ks.yaml
