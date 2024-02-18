@@ -78,9 +78,6 @@ jobs:
           path: default
 
       - run: echo ${{ matrix.paths }}
-      - run: echo ${{ matrix }}
-      - run: echo ${{ fromJSON(needs.changed-clusters.outputs) }}
-      - run: echo ${{ fromJSON(needs.changed-clusters.outputs.matrix) }}
 
       - name: Diff Resources
         uses: docker://ghcr.io/allenporter/flux-local:main
@@ -88,8 +85,8 @@ jobs:
           args: >-
             diff ${{ matrix.resources }}
             --unified 6
-            --path /github/workspace/pull/${{ matrix }}/flux
-            --path-orig /github/workspace/default/${{ matrix }}/flux
+            --path /github/workspace/pull/${{ matrix }}/../flux
+            --path-orig /github/workspace/default/${{ matrix }/../flux
             --strip-attrs "helm.sh/chart,checksum/config,app.kubernetes.io/version,chart"
             --limit-bytes 10000
             --all-namespaces
