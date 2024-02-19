@@ -6,8 +6,11 @@ metadata:
 data:
   values.yaml: |
     autoDirectNodeRoutes: true
+    bandwidthManager:
+      enabled: true
+      bbr: true
     bpf:
-      masquerade: true
+      masquerade: false
     bgp:
       enabled: false
       announce:
