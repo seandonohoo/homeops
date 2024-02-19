@@ -23,7 +23,7 @@ data:
       integration: containerd
       socketPath: /var/run/k3s/containerd/containerd.sock
     endpointRoutes:
-      enabled: true
+      enabled: false
     hubble:
       enabled: true
       metrics:
