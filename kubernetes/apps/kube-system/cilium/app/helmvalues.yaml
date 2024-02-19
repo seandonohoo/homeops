@@ -5,12 +5,9 @@ metadata:
   name: cilium-values
 data:
   values.yaml: |
-    # autoDirectNodeRoutes: true
-    bandwidthManager:
-      enabled: true
-      bbr: true
+    autoDirectNodeRoutes: true
     bpf:
-      masquerade: false
+      masquerade: true
     bgp:
       enabled: false
       announce:
@@ -103,3 +100,4 @@ data:
     rollOutCiliumPods: true
     securityContext:
       privileged: true
+    tunnel: disabled
