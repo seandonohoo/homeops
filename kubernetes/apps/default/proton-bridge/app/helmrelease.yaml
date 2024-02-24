@@ -37,7 +37,7 @@ spec:
           main:
             image:
               repository: docker.io/shenxn/protonmail-bridge
-              tag: 3.8.2-1@sha256:abc0249e7122841fae77ef0353f47574039710e58050bf25bd03c7491c510110
+              tag: 3.9.1-1@sha256:da19bf102b87fe6fe026b882f61ed3e5c11cc7e86d75b9fd3e2b8fe8b4247b43
             env:
               TZ: America/Chicago
             probes:
