@@ -4,6 +4,7 @@ kind: Kustomization
 namespace: networking
 resources:
   - ./homeassistant.yaml
+  - ./homeassistant-new.yaml
   - ./minio.yaml
   - ./s3-minio.yaml
   - ./birdnet.yaml
