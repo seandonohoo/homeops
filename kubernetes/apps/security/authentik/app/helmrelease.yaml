@@ -26,13 +26,6 @@ spec:
         envFrom:
           - secretRef:
               name: authentik-secrets
-    podAnnotations:
-      secret.reloader.stakater.com/reload: authentik-secrets
-    # autoscaling:
-    #   server:
-    #     enabled: true
-    #   worker:
-    #     enabled: true
     strategy:
       type: RollingUpdate
     worker:
@@ -49,6 +42,7 @@ spec:
         # gethomepage.dev/widget.type: authentik
         # gethomepage.dev/widget.url: https://authentik.${SECRET_DOMAIN}
         # gethomepage.dev/widget.key: "{{HOMEPAGE_VAR_AUTHENTIK_TOKEN}}"
+        secret.reloader.stakater.com/reload: authentik-secrets
         external-dns.alpha.kubernetes.io/target: external.${SECRET_DOMAIN}
       hosts:
         - host: &host authentik.${SECRET_DOMAIN}
