@@ -32,11 +32,6 @@ spec:
     #     envFrom:
     #       - secretRef:
     #           name: authentik-secrets
-    strategy:
-      type: RollingUpdate
-    worker:
-      strategy:
-        type: RollingUpdate
     ingress:
       enabled: true
       ingressClassName: external
