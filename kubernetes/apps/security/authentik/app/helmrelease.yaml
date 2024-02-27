@@ -23,7 +23,7 @@ spec:
         type: RollingUpdate
       envFrom:
         - secretRef:
-            name: authentik-secret
+            name: authentik-secrets
     authentik:
       redis:
         host: authentik-redis.security.svc.cluster.local
