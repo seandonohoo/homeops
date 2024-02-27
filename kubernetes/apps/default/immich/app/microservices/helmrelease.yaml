@@ -56,7 +56,7 @@ spec:
           main:
             image:
               repository: ghcr.io/immich-app/immich-server
-              tag: v1.94.1@sha256:c7b80752d48464dea1c4495ff810365a0809d89c2ac219547d3c1aed81c6411f
+              tag: v1.96.0@sha256:bd1558f9bb6a107eb924393e77a96d39a917d63a7f2d3b3055544e2f05444d13
             args:
               - start-microservices.sh
             envFrom:
