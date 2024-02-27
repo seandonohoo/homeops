@@ -25,13 +25,13 @@ spec:
       envFrom:
         - secretRef:
             name: authentik-secrets
-    initContainers:
-      init-db:
-        image: ghcr.io/onedr0p/postgres-init:16
-        imagePullPolicy: IfNotPresent
-        envFrom:
-          - secretRef:
-              name: authentik-secrets
+    # initContainers:
+    #   init-db:
+    #     image: ghcr.io/onedr0p/postgres-init:16
+    #     imagePullPolicy: IfNotPresent
+    #     envFrom:
+    #       - secretRef:
+    #           name: authentik-secrets
     strategy:
       type: RollingUpdate
     worker:
