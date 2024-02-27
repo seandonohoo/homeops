@@ -19,6 +19,12 @@ spec:
     - name: authentik-redis
       namespace: security
   values:
+    global:
+      deploymentStrategy:
+        type: RollingUpdate
+      envFrom:
+        - secretRef:
+            name: authentik-secrets
     initContainers:
       init-db:
         image: ghcr.io/onedr0p/postgres-init:16
@@ -52,9 +58,6 @@ spec:
       tls:
         - hosts:
             - *host
-    global.envFrom:
-      - secretRef:
-          name: authentik-secrets
     postgresql:
       enabled: false
     redis:
