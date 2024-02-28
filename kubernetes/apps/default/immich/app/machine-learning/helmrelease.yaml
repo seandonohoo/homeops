@@ -29,7 +29,7 @@ spec:
           main:
             image:
               repository: ghcr.io/immich-app/immich-machine-learning
-              tag: v1.94.1@sha256:a3c612c548d5f547a31d001d97f661d7acd4a0ae354de76a70e45162d2b81014
+              tag: v1.96.0@sha256:5368a24201ce4ad4b2f81b892a69fb46006b3217e5961d5ee709176f4714e075
             env:
               IMMICH_MEDIA_LOCATION: &mediaLocation /usr/src/app/upload
               MACHINE_LEARNING_HOST: 0.0.0.0
