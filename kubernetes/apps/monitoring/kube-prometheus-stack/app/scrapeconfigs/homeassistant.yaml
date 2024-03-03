@@ -12,4 +12,6 @@ spec:
   scrapeInterval: 60s
   scheme: HTTPS
   authorization:
-    credentials: "${SECRET_HASS_TOKEN}"
+    credentials:
+      key: cluster-secrets
+      name: SECRET_HASS_TOKEN
