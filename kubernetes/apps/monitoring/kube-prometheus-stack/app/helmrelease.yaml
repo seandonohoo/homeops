@@ -164,7 +164,7 @@ spec:
               resources:
                 requests:
                   storage: 20Gi
-        additionalScrapeConfig:
+        additionalScrapeConfigs:
           - job_name: "hass"
             metrics_path: /api/prometheus
             bearer_token:
