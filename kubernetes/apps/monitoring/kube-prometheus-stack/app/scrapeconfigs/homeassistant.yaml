@@ -8,6 +8,8 @@ spec:
   staticConfigs:
     - targets:
         - "ha.${SECRET_DOMAIN}"
-  metricsPath: /api/metrics
+  metricsPath: /api/prometheus
+  scrapeInterval: 60s
+  scheme: HTTPS
   authorization:
     credentials: "${SECRET_HASS_TOKEN}"
