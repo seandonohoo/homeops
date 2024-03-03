@@ -164,6 +164,16 @@ spec:
               resources:
                 requests:
                   storage: 20Gi
+        additionalScrapeConfig:
+          - job_name: "hass"
+            metrics_path: /api/prometheus
+            bearer_token:
+            scrape_interval: 60s
+            authorization:
+              credentials: "${SECRET_HASS_TOKEN}"
+            scheme: https
+            static_configs:
+              - targets: ['ha.${SECRET_DOMAIN}'] #hass
     nodeExporter:
       enabled: true
     prometheus-node-exporter:

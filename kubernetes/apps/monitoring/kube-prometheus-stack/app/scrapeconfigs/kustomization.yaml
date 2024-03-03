@@ -7,7 +7,6 @@ resources:
   # - ./federation.yaml
   - ./kube-vip.yaml
   - ./node-exporter.yaml
-  - ./homeassistant.yaml
   # - ./pikvm.yaml
   # - ./vyos.yaml
   # - ./zigbee-controller.yaml
