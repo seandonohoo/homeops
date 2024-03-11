@@ -30,9 +30,7 @@ spec:
     - name: snapshot-controller
       namespace: kube-system
   values:
-    monitoring:
-      enabled: true
-      createPrometheusRules: true
+
     ingress:
       dashboard:
         ingressClassName: internal
@@ -45,6 +43,9 @@ spec:
               - *host
     toolbox:
       enabled: true
+    monitoring:
+      enabled: true
+      createPrometheusRules: true
     configOverride: |
       [global]
       bdev_enable_discard = true
