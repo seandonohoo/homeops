@@ -63,7 +63,7 @@ spec:
     webhook:
       image:
         repository: ghcr.io/seandonohoo/gateway-admision-controller
-        tag: dev@sha256:257f3986d4d22ad3f8577c7891dfc50e42209a3a4637366bc1599d9bb78a2bcd
+        tag: dev@sha256:1ea83cd47e71d33c0ee399d65e4ee20407cc70a59bc20d2bc8560f5d856f2e40
       gatewayDefault: false
       gatewayLabel: setGateway
       gatewayAnnotation: setGateway
