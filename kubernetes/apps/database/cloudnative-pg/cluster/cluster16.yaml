@@ -35,7 +35,7 @@ spec:
   # Note: bootstrap is needed when recovering from an existing cnpg cluster
   bootstrap:
     recovery:
-      source: &previousCluster postgres16-v2
+      source: &previousCluster postgres16-v3
   backup:
     retentionPolicy: 30d
     barmanObjectStore: &barmanObjectStore
@@ -46,7 +46,7 @@ spec:
         maxParallel: 8
       destinationPath: s3://cloudnative-pg/
       endpointURL: "http://s3.${OLD_SECRET_DOMAIN}:9000"
-      serverName: &currentCluster postgres16-v3
+      serverName: &currentCluster postgres16-v4
       s3Credentials:
         accessKeyId:
           name: cloudnative-pg-secret
