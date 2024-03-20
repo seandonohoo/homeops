@@ -28,7 +28,7 @@ spec:
       namespace: rook-ceph
   values:
     controllers:
-      main:
+      media-browser:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -76,8 +76,8 @@ spec:
             fsGroupChangePolicy: OnRootMismatch
             supplementalGroups: [10000]
     service:
-      main:
-        controller: main
+      app:
+        controller: media-browser
         ports:
           http:
             port: *port
@@ -90,7 +90,7 @@ spec:
             paths:
               - path: /
                 service:
-                  name: main
+                  identifier: app
                   port: http
         tls:
           - hosts:
