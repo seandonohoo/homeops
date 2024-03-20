@@ -32,7 +32,7 @@ spec:
       namespace: volsync
   values:
     controllers:
-      main:
+      plex:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -89,7 +89,8 @@ spec:
             fsGroupChangePolicy: OnRootMismatch
             supplementalGroups: [44, 105, 10000]
     service:
-      main:
+      app:
+        controller: plex
         type: LoadBalancer
         annotations:
           io.cilium/lb-ipam-ips: 10.26.10.220
@@ -108,6 +109,7 @@ spec:
             paths:
               - path: /
                 service:
+                  identifier: app
                   name: main
                   port: http
         tls:
