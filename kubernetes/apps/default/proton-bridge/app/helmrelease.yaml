@@ -30,7 +30,7 @@ spec:
       namespace: volsync
   values:
     controllers:
-      main:
+      proton-bridge:
         annotations:
           reloader.stakater.com/auto: "true"
         containers:
@@ -48,7 +48,8 @@ spec:
               startup:
                 enabled: false
     service:
-      main:
+      app:
+        controller: proton-bridge
         type: LoadBalancer
         annotations:
           coredns.io/hostname: "proton.${SECRET_DOMAIN}"
