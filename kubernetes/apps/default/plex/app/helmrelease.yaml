@@ -99,7 +99,6 @@ spec:
             port: 32400
     ingress:
       main:
-        enabled: true
         className: external
         annotations:
           external-dns.alpha.kubernetes.io/target: "external.${SECRET_DOMAIN}"
@@ -110,25 +109,29 @@ spec:
               - path: /
                 service:
                   identifier: app
-                  name: main
                   port: http
         tls:
           - hosts:
               - *host
     persistence:
       config:
-        enabled: true
         existingClaim: plex
+      cache:
+        existingClaim: plex-cache
+        globalMounts:
+          - path: /config/Library/Application Support/Plex Media Server/Cache
+      logs:
+        type: emptyDir
+        globalMounts:
+          - path: /config/Library/Application Support/Plex Media Server/Logs
       tmp:
         type: emptyDir
       transcode:
         type: emptyDir
       media:
-        enabled: true
         type: nfs
         server: 10.26.10.5
         path: /volume1/Media
         globalMounts:
           - path: /media
             readOnly: true
-        mountPath: /media
